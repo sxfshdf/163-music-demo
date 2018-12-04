@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>163-music-demo</title>
+  <link rel="stylesheet" href="./css/default.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+    crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="page">
+    <aside>
+      
+      <div class="content">
+        <div class="logoArea">
+          <img src="./img/music.svg" alt="" class="logo">
+          <p>CloudMUsicAdmin</p>
+        </div>
+        <div class="uploadArea">
+          <div class="uploadContainer">
+            <span class="fas fa-plus plus"></span>
+          </div>
+          <p class="description">点击选区或者拖曳歌曲至选区添加歌曲</p>
+        </div>
+      </div>
+
+
+    </aside>
+    <main>
+      <header>
+
+      </header>
+      <table>
+        <thead>
+          <tr>
+            <th class="name">歌名</th>
+            <th class="singer">歌手</th>
+            <th class="url">外链</th>
+            <th class="actions">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="xxx">
+            <td>天后天后天后天后天后</td>
+            <td class="singer">陈势安陈</td>
+            <td class="url">http://http://http://http://http://http://http://http://http://http://http://http://http://http:///http</td>
+            <td>
+              <span class="far fa-edit edit"></span>
+              <span class="far fa-trash-alt delete"></span>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </main>
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    $('#xxx').on('click', (e) => {
+      console.log("ssssss")
+    })
+  </script>
+</body>
+
+</html>
