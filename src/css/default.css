@@ -12,6 +12,9 @@ body{
   background: #f1f1f1;
   height: 100vh;
 }
+input{
+  font: inherit;
+}
 .page{
   background: #fff;
   height: 100%;
@@ -74,6 +77,7 @@ aside .description{
   color: #fff;
   margin-top: 16px;
 }
+
 main .container{
   margin-left: 240px;
 }
@@ -82,6 +86,8 @@ main header{
   width: 100%;
   background: #fff;
   border-bottom: 1px solid #d1d4dd;
+  position: fixed;
+  top: 0;
 }
 main header p{
   font-size: 16px;
@@ -90,23 +96,31 @@ main header p{
   font-weight: bold;
   color: #e54352;
 }
+main .songList{
+  /* display: none; */
+  /* overflow: hidden; */
+}
+main .newSong{
+  display: none;
+}
 main table{
   /* height: 100px;
   width: 100px; */
   width: 90%;
   background: #fff;
   margin: auto;
-  margin-top: 24px;
+  margin-top: 96px;
   border-collapse: collapse;
   /* border: 1px solid #ddd; */
   /* box-shadow: 0 0 4px rgba(0,0,0,0.2); */
   table-layout:fixed;
-  white-space: nowrap;
+  /* white-space: nowrap; */
+  
 }
 table th{
   text-align: left;
   border-bottom: 1px solid #d1d4dd;
-  padding: 0 24px;
+  padding: 0 0 0 24px;
   /* color: #666; */
   color: #a5a9b3;
   font-size: 14px;
@@ -114,32 +128,27 @@ table th{
   font-weight: normal;
 }
 table th.name{
-  width: 32%;
+  width: 28%;
 }
 table th.singer{
-  width: 14%;
+  width: 18%;
 }
-table th.url{
-  width: 40%;
+table th.createTime,
+table th.updateTime,{
+  width: 20%;
 }
 table th.actions{
   width: 120px;
-}
-table td.singer,
-table td.url,
-table td.name{
-  color: #5e6166;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 table tr{
   height: 48px;
   border-bottom: 1px solid #e6e9f0;
 }
 table td{
+  color: #5e6166;
+  word-break: break-all;
   font-size: 12px;
-  padding: 0 24px;
+  padding: 0 0 0 24px;
 }
 table .far{
   font-size: 12px;
@@ -158,4 +167,54 @@ table .far:hover{
 }
 table .delete{
   margin-left: 4px;
+}
+
+main form{
+  /* border: 1px solid red; */
+  margin: auto;
+  width: 400px;
+  /* text-align: center; */
+  margin-top: 120px;
+}
+main form input{
+  width: 400px;
+  margin: 10px 0 24px 0;
+  height: 40px;
+  border-radius: 2px;
+  border: 1px solid #ddd;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+main form .raw{
+  display: flex;
+  flex-direction: column;
+}
+main form label{
+  display: inline-block;
+  width: 4em;
+  color: #a5a9b3;
+}
+main form .actions{
+  flex-direction: row;
+  margin-top: 16px;
+}
+main form button{
+  height: 40px;
+  width: 96px;
+  background: linear-gradient(to bottom, #ff4760 0%,#e54352 100%);
+  border: none;
+  color: #fff;
+  border-radius: 2px;
+}
+main form .cancel{
+  background: #fff;
+  border: 1px solid #a5a9b3;
+  color: #666;
+  margin-left: 20px;
+}
+main button.save:hover{
+  background: #e54352;
+}
+main button.cancel:hover{
+  border: 1px solid #666;
 }
