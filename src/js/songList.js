@@ -31,9 +31,9 @@
     render(data) {
       $(this.el).html(this.template)
       let { songs } = data
-      let songs1 = songs.reverse()
-      let trList = songs1.map((song) => {
-        return ` <tr><td class="name">${song.name}</td><td class="singer">${song.singer}</td>
+      // let songs1 = songs.reverse()
+      let trList = songs.map((song) => {
+        return ` <tr data-songId = ${song.id}><td class="name">${song.name}</td><td class="singer">${song.singer}</td>
         <td class="createTime">${song.createTime}</td><td class="updateTime">${song.updateTime}</td><td>
         <span class="far fa-edit edit"></span>
         <span class="far fa-trash-alt delete"></span>
@@ -58,7 +58,8 @@
     },
     find() {
       let query = new AV.Query('Song')
-      query.ascending('createdAt')
+      query.descending('createdAt')
+      // query.ascending('createdAt')
       return query.find().then((songs) => {
         this.data.songs = songs.map((song) => {
           let songs = { id: song.id, ...song.attributes }
@@ -83,7 +84,6 @@
           songs.updateTime = updateTime
           return songs
         })
-        console.log(songs.length)
         return songs
       })
     }
@@ -94,6 +94,7 @@
       this.model = model
       this.view = view
       this.view.render(this.model.data)
+      this.bindEvents()
 
       window.eventHub.on('upload', (data) => {
         this.view.hideSongList()
@@ -105,11 +106,40 @@
 
       window.eventHub.on('create', (data) => {
         this.view.showSongList()
-        this.model.data.songs.push(data)
+        this.model.data.songs.unshift(data)
         this.view.render(this.model.data)
+        
       })
       this.model.find().then((data)=>{
         this.view.render(this.model.data)
+      })
+      window.eventHub.on('update',(data)=>{
+        this.view.showSongList()
+        let songs = this.model.data.songs
+        for(let i=0; i<songs.length; i++){
+          if(songs[i].id === data.id){
+            songs[i] = data
+          }
+        }
+        this.view.render(this.model.data)
+      })
+      window.eventHub.on('edit',(data)=>{
+        this.view.hideSongList()
+      })
+    },
+    bindEvents(){
+      $(this.view.el).on('click','.edit',(e)=>{
+        let $e = $(e.currentTarget)
+        let songId = $e.parent().parent().attr('data-songId')
+        let data 
+        let songs = this.model.data.songs
+        for(let i=0; i<songs.length; i++){
+          if(songs[i].id === songId){
+            data = songs[i]
+            break
+          }
+        }
+        window.eventHub.emit('edit',JSON.parse(JSON.stringify(data)))
       })
     }
   }

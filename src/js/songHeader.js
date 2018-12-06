@@ -12,6 +12,9 @@
     },
     SongList(){
       $(this.el).find('p').text('歌曲列表')
+    },
+    editSong(){
+      $(this.el).find('p').text('编辑歌曲')
     }
   }
 
@@ -29,6 +32,14 @@
 
       window.eventHub.on('create',()=>{
         this.view.SongList()
+      })
+
+      window.eventHub.on('cancel',()=>{
+        this.view.SongList()
+      })
+
+      window.eventHub.on('edit',()=>{
+        this.view.editSong()
       })
     }
   }

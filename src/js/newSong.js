@@ -61,15 +61,41 @@
         let updateHours = time(newSong.updatedAt.getHours())
         let updateMinutes = time(newSong.updatedAt.getMinutes())
         let updateSeconds = time(newSong.updatedAt.getSeconds())
-        function time(time){
-          if(time<10){
-            time = '0'+time
+        function time(time) {
+          if (time < 10) {
+            time = '0' + time
           }
           return time
         }
-        let createTime = createDate + ' ' + createHours+':'+createMinutes+':'+createSeconds
-        let updateTime = updateDate + ' ' + updateHours+':'+updateMinutes+':'+updateSeconds
+        let createTime = createDate + ' ' + createHours + ':' + createMinutes + ':' + createSeconds
+        let updateTime = updateDate + ' ' + updateHours + ':' + updateMinutes + ':' + updateSeconds
         this.data.createTime = createTime
+        this.data.updateTime = updateTime
+        Object.assign(this.data, { id, ...attributes })
+      }, (error) => {
+        console.error(error);
+      })
+    },
+    update(data) {
+      let song = AV.Object.createWithoutData('Song', this.data.id);
+      // 修改属性
+      song.set('name', data.name)
+      song.set('singer', data.singer)
+      song.set('url', data.url)
+      return song.save().then((newSong) => {
+        let { id, attributes } = newSong
+
+        let updateDate = newSong.updatedAt.toLocaleDateString()
+        let updateHours = time(newSong.updatedAt.getHours())
+        let updateMinutes = time(newSong.updatedAt.getMinutes())
+        let updateSeconds = time(newSong.updatedAt.getSeconds())
+        function time(time) {
+          if (time < 10) {
+            time = '0' + time
+          }
+          return time
+        }
+        let updateTime = updateDate + ' ' + updateHours + ':' + updateMinutes + ':' + updateSeconds
         this.data.updateTime = updateTime
         Object.assign(this.data, { id, ...attributes })
       }, (error) => {
@@ -98,7 +124,16 @@
         this.view.hideNewSong()
       })
 
+      window.eventHub.on('edit', (data) => {
+        this.view.showNewSong()
+        this.model.data = data
+        this.view.render(this.model.data)
+      })
+      window.eventHub.on('update',(data)=>{
+        this.view.hideNewSong()
+      })
     },
+
     bindEvents() {
       let $el = $(this.view.el)
       $el.on('click', '#cancel', (e) => {
@@ -108,15 +143,31 @@
 
       $el.on('submit', 'form', (e) => {
         e.preventDefault()
-        let need = 'name singer url'.split(' ')
-        let data = {}
-        need.map((string) => {
-          data[string] = $el.find(`[name=${string}]`).val()
-        })
-        this.model.create(data)
-          .then(() => {
-            window.eventHub.emit('create', JSON.parse(JSON.stringify(this.model.data)))
+        if (this.model.data.id) {
+          let need = 'name singer url'.split(' ')
+          let data = {}
+          need.map((string) => {
+            data[string] = $el.find(`[name=${string}]`).val()
           })
+          this.model.update(data)
+          .then((data)=>{
+            window.eventHub.emit('update',this.model.data)
+          })
+          console.log(22222)
+        } else {
+          let need = 'name singer url'.split(' ')
+          let data = {}
+          need.map((string) => {
+            data[string] = $el.find(`[name=${string}]`).val()
+          })
+          this.model.create(data)
+            .then(() => {
+              window.eventHub.emit('create', JSON.parse(JSON.stringify(this.model.data)))
+            })
+            console.log(33333)
+        }
+
+
       })
     }
 
