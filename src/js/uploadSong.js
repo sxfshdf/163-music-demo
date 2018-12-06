@@ -68,8 +68,8 @@
             var response = JSON.parse(info.response);
             var sourceLink = 'http://' + domain + '/' + encodeURIComponent(response.key)
             window.eventHub.emit('upload',{
-              link: sourceLink, // 外链
-              key: response.key //歌名
+              url: sourceLink, // 外链
+              name: response.key //歌名
             })
             
           },

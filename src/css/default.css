@@ -12,8 +12,12 @@ body{
   background: #f1f1f1;
   height: 100vh;
 }
+
 input{
   font: inherit;
+}
+ul,li{
+  list-style: none;
 }
 .page{
   background: #fff;
@@ -117,6 +121,9 @@ main table{
   /* white-space: nowrap; */
   
 }
+table tbody tr:hover{
+  background: #fbfbfb;
+}
 table th{
   text-align: left;
   border-bottom: 1px solid #d1d4dd;
@@ -128,14 +135,14 @@ table th{
   font-weight: normal;
 }
 table th.name{
-  width: 28%;
+  width: 20%;
 }
 table th.singer{
-  width: 18%;
+  width: 14%;
 }
 table th.createTime,
-table th.updateTime,{
-  width: 20%;
+table th.updateTime{
+  width: 160px;
 }
 table th.actions{
   width: 120px;
