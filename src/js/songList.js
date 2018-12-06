@@ -58,7 +58,7 @@
     },
     find() {
       let query = new AV.Query('Song')
-      query.descending('createdAt')
+      query.descending('updatedAt')
       // query.ascending('createdAt')
       return query.find().then((songs) => {
         this.data.songs = songs.map((song) => {
@@ -86,6 +86,11 @@
         })
         return songs
       })
+    },
+    delete(data) {
+      let song = AV.Object.createWithoutData('Song', data.id)
+      return song.destroy().then((xxx)=>{
+      })
     }
   }
 
@@ -108,38 +113,67 @@
         this.view.showSongList()
         this.model.data.songs.unshift(data)
         this.view.render(this.model.data)
-        
+
       })
-      this.model.find().then((data)=>{
+      this.model.find().then((data) => {
         this.view.render(this.model.data)
       })
-      window.eventHub.on('update',(data)=>{
+      window.eventHub.on('update', (data) => {
         this.view.showSongList()
         let songs = this.model.data.songs
-        for(let i=0; i<songs.length; i++){
-          if(songs[i].id === data.id){
+        for (let i = 0; i < songs.length; i++) {
+          if (songs[i].id === data.id) {
             songs[i] = data
           }
         }
         this.view.render(this.model.data)
       })
-      window.eventHub.on('edit',(data)=>{
+      window.eventHub.on('edit', (data) => {
         this.view.hideSongList()
       })
+      window.eventHub.on('delete', (data) => {
+        this.view.hideSongList()
+      })
+      window.eventHub.on('deleteCancel', () => {
+        this.view.showSongList()
+      })
+      window.eventHub.on('deleteSong', (song) => {
+        this.view.showSongList()
+        this.model.delete(song).then((data)=>{
+          this.model.find().then((data)=>{
+            this.view.render(this.model.data)
+          })
+          
+        })
+      })
     },
-    bindEvents(){
-      $(this.view.el).on('click','.edit',(e)=>{
+    bindEvents() {
+      $(this.view.el).on('click', '.edit', (e) => {
+        e.preventDefault()
         let $e = $(e.currentTarget)
         let songId = $e.parent().parent().attr('data-songId')
-        let data 
+        let data
         let songs = this.model.data.songs
-        for(let i=0; i<songs.length; i++){
-          if(songs[i].id === songId){
+        for (let i = 0; i < songs.length; i++) {
+          if (songs[i].id === songId) {
             data = songs[i]
             break
           }
         }
-        window.eventHub.emit('edit',JSON.parse(JSON.stringify(data)))
+        window.eventHub.emit('edit', JSON.parse(JSON.stringify(data)))
+      })
+      $(this.view.el).on('click', '.delete', (e) => {
+        let $e = $(e.currentTarget)
+        let songId = $e.parent().parent().attr('data-songId')
+        let data
+        let songs = this.model.data.songs
+        for (let i = 0; i < songs.length; i++) {
+          if (songs[i].id === songId) {
+            data = songs[i]
+            break
+          }
+        }
+        window.eventHub.emit('delete', JSON.parse(JSON.stringify(data)))
       })
     }
   }

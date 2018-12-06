@@ -12,7 +12,9 @@ body{
   background: #f1f1f1;
   height: 100vh;
 }
-
+button{
+  outline: none;
+}
 input{
   font: inherit;
 }
@@ -205,7 +207,7 @@ main form .actions{
   flex-direction: row;
   margin-top: 16px;
 }
-main form button{
+main button{
   height: 40px;
   width: 96px;
   background: linear-gradient(to bottom, #ff4760 0%,#e54352 100%);
@@ -213,15 +215,37 @@ main form button{
   color: #fff;
   border-radius: 2px;
 }
-main form .cancel{
+main button.cancel{
   background: #fff;
   border: 1px solid #a5a9b3;
   color: #666;
   margin-left: 20px;
 }
-main button.save:hover{
+main button.save:hover,
+main button.delete:hover{
   background: #e54352;
 }
 main button.cancel:hover{
   border: 1px solid #666;
+}
+
+main .songDelete{
+  display: none;
+}
+main .deleteSong{
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+}
+main .delete-content{
+  text-align: center;
+  color: #5e6166;
+}
+main .delete-content .actions{
+  margin-top: 48px;
+}
+main .delete-content .strong{
+  font-weight: bold;
+  color: #e54352;
 }

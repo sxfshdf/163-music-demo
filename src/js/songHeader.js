@@ -15,6 +15,9 @@
     },
     editSong(){
       $(this.el).find('p').text('编辑歌曲')
+    },
+    deleteSong(){
+      $(this.el).find('p').text('删除歌曲')
     }
   }
 
@@ -40,6 +43,22 @@
 
       window.eventHub.on('edit',()=>{
         this.view.editSong()
+      })
+
+      window.eventHub.on('update',()=>{
+        this.view.SongList()
+      })
+
+      window.eventHub.on('delete',()=>{
+        this.view.deleteSong()
+      })
+
+      window.eventHub.on('deleteCancel',()=>{
+        this.view.SongList()
+      })
+
+      window.eventHub.on('deleteSong',()=>{
+        this.view.SongList()
       })
     }
   }

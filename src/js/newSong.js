@@ -112,8 +112,9 @@
       this.bindEvents()
 
       window.eventHub.on('upload', (data) => {
+        this.model.data = data
         this.view.showNewSong()
-        this.view.render(data)
+        this.view.render(this.model.data)
       })
 
       window.eventHub.on('cancel', () => {
@@ -153,7 +154,7 @@
           .then((data)=>{
             window.eventHub.emit('update',this.model.data)
           })
-          console.log(22222)
+          console.log(this.model.data.id)
         } else {
           let need = 'name singer url'.split(' ')
           let data = {}
@@ -164,7 +165,6 @@
             .then(() => {
               window.eventHub.emit('create', JSON.parse(JSON.stringify(this.model.data)))
             })
-            console.log(33333)
         }
 
 
