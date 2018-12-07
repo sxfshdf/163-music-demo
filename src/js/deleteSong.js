@@ -35,11 +35,7 @@
       this.view = view
       this.view.render()
       this.bindEvents()
-      window.eventHub.on('delete',(data)=>{
-        this.view.showDeleteSong()
-        this.model.data = data
-        this.view.render(this.model.data)
-      })
+      this.bindEventHub()
     },
     bindEvents(){
       $(this.view.el).on('click','.cancel',(e)=>{
@@ -52,6 +48,13 @@
         e.preventDefault()
         this.view.hideDeleteSong()
         window.eventHub.emit('deleteSong',this.model.data)
+      })
+    },
+    bindEventHub(){
+      window.eventHub.on('delete',(data)=>{
+        this.view.showDeleteSong()
+        this.model.data = data
+        this.view.render(this.model.data)
       })
     }
     

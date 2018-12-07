@@ -2,8 +2,8 @@
   let view = {
     el: '.songList',
     template: `
-   
-      <table> 
+      <div class="tableContainer">
+      <table>
         <thead>
           <tr>
             <th class="name">歌名</th>
@@ -26,7 +26,7 @@
           </tr>
         </tbody>
       </table>
-    
+      </div>
     `,
     render(data) {
       $(this.el).html(this.template)
@@ -89,7 +89,7 @@
     },
     delete(data) {
       let song = AV.Object.createWithoutData('Song', data.id)
-      return song.destroy().then((xxx)=>{
+      return song.destroy().then((xxx) => {
       })
     }
   }
@@ -100,52 +100,10 @@
       this.view = view
       this.view.render(this.model.data)
       this.bindEvents()
-
-      window.eventHub.on('upload', (data) => {
-        this.view.hideSongList()
-      })
-
-      window.eventHub.on('cancel', (data) => {
-        this.view.showSongList()
-      })
-
-      window.eventHub.on('create', (data) => {
-        this.view.showSongList()
-        this.model.data.songs.unshift(data)
-        this.view.render(this.model.data)
-
-      })
       this.model.find().then((data) => {
         this.view.render(this.model.data)
       })
-      window.eventHub.on('update', (data) => {
-        this.view.showSongList()
-        let songs = this.model.data.songs
-        for (let i = 0; i < songs.length; i++) {
-          if (songs[i].id === data.id) {
-            songs[i] = data
-          }
-        }
-        this.view.render(this.model.data)
-      })
-      window.eventHub.on('edit', (data) => {
-        this.view.hideSongList()
-      })
-      window.eventHub.on('delete', (data) => {
-        this.view.hideSongList()
-      })
-      window.eventHub.on('deleteCancel', () => {
-        this.view.showSongList()
-      })
-      window.eventHub.on('deleteSong', (song) => {
-        this.view.showSongList()
-        this.model.delete(song).then((data)=>{
-          this.model.find().then((data)=>{
-            this.view.render(this.model.data)
-          })
-          
-        })
-      })
+      this.bindEventHub()
     },
     bindEvents() {
       $(this.view.el).on('click', '.edit', (e) => {
@@ -174,6 +132,48 @@
           }
         }
         window.eventHub.emit('delete', JSON.parse(JSON.stringify(data)))
+      })
+    },
+    bindEventHub() {
+      window.eventHub.on('upload', (data) => {
+        this.view.hideSongList()
+      })
+
+      window.eventHub.on('cancel', (data) => {
+        this.view.showSongList()
+      })
+
+      window.eventHub.on('create', (data) => {
+        this.view.showSongList()
+        this.model.data.songs.unshift(data)
+        this.view.render(this.model.data)
+      })
+      window.eventHub.on('update', (data) => {
+        this.view.showSongList()
+        let songs = this.model.data.songs
+        for (let i = 0; i < songs.length; i++) {
+          if (songs[i].id === data.id) {
+            songs[i] = data
+          }
+        }
+        this.view.render(this.model.data)
+      })
+      window.eventHub.on('edit', (data) => {
+        this.view.hideSongList()
+      })
+      window.eventHub.on('delete', (data) => {
+        this.view.hideSongList()
+      })
+      window.eventHub.on('deleteCancel', () => {
+        this.view.showSongList()
+      })
+      window.eventHub.on('deleteSong', (song) => {
+        this.view.showSongList()
+        this.model.delete(song).then((data) => {
+          this.model.find().then((data) => {
+            this.view.render(this.model.data)
+          })
+        })
       })
     }
   }

@@ -109,13 +109,22 @@ main .songList{
 main .newSong{
   display: none;
 }
+main .tableContainer{
+  /* border: 1px solid red; */
+  /* height: 532px; */
+  /* overflow: auto; */
+  margin-top: 96px;
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+}
 main table{
   /* height: 100px;
   width: 100px; */
   width: 90%;
   background: #fff;
-  margin: auto;
-  margin-top: 96px;
+  /* margin: auto; */
+  /* margin-top: 96px; */
   border-collapse: collapse;
   /* border: 1px solid #ddd; */
   /* box-shadow: 0 0 4px rgba(0,0,0,0.2); */
@@ -248,4 +257,25 @@ main .delete-content .actions{
 main .delete-content .strong{
   font-weight: bold;
   color: #e54352;
+}
+
+.loadingContainer{
+  display: none;
+}
+.loading{
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(255,255,255,0.6);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading img{
+  height: 72px;
+  opacity: 0.8;
 }

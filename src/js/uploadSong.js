@@ -51,6 +51,8 @@
           },
           'BeforeUpload': function (up, file) {
             // 每个文件上传前,处理相关的事情
+            window.eventHub.emit('beforeUploaded')
+            
           },
           'UploadProgress': function (up, file) {
             // 每个文件上传时,处理相关的事情
@@ -71,12 +73,13 @@
               url: sourceLink, // 外链
               name: response.key //歌名
             })
-            
+            window.eventHub.emit('afterUploaded')
           },
           'Error': function (up, err, errTip) {
             //上传出错时,处理相关的事情
           },
           'UploadComplete': function () {
+            
             //队列文件处理完毕后,处理相关的事情
           },
           // 'Key': function (up, file) {
