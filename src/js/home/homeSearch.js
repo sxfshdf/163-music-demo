@@ -2,7 +2,7 @@
   let view = {
     el: '.search-container',
     init(){
-      $el = $(this.el)
+      this.$el = $(this.el)
     },
     template: `
       <div class="input-container">
@@ -14,13 +14,13 @@
       </div>
     `,
     render(){
-      $el.html(this.template)
+      this.$el.html(this.template)
     },
     hide(){
-      $el.parent().removeClass('active')
+      this.$el.parent().removeClass('active')
     },
     show(){
-      $el.parent().addClass('active')
+      this.$el.parent().addClass('active')
     }
   }
 
@@ -36,37 +36,37 @@
       this.bindEventHub()
     },
     bindEvents(){
-      $el.find('.input').on('focus',(e)=>{
+      this.view.$el.find('.input').on('focus',(e)=>{
         e.preventDefault()
-        $el.find('.input-container').addClass('active')
+        this.view.$el.find('.input-container').addClass('active')
         // let value = $(e.currentTarget).val()
         // console.log(value)
       })
-      $el.find('.input').on('blur',(e)=>{
+      this.view.$el.find('.input').on('blur',(e)=>{
         e.preventDefault()
-        $el.find('.input-container').removeClass('active')
+        this.view.$el.find('.input-container').removeClass('active')
         // let value = $(e.currentTarget).val()
         // window.eventHub.emit('search',value)
       })
-      $el.find('.input').on('input',(e)=>{
+      this.view.$el.find('.input').on('input',(e)=>{
         let value = $(e.currentTarget).val()
         if(value){
-          $el.find('.timesContainer').addClass('active')
+          this.view.$el.find('.timesContainer').addClass('active')
         }else{
-          $el.find('.timesContainer').removeClass('active')
+          this.view.$el.find('.timesContainer').removeClass('active')
           window.eventHub.emit('noSearchValue')
         }
       })
-      $el.find('.timesContainer').on('click',(e)=>{
-        $el.find('.input').val('')
-        $el.find('.input').trigger('focus')
+      this.view.$el.find('.timesContainer').on('click',(e)=>{
+        this.view.$el.find('.input').val('')
+        this.view.$el.find('.input').trigger('focus')
         $(e.currentTarget).removeClass('active')
         window.eventHub.emit('resetSearch')
       })
-      $el.on('submit',(e)=>{
+      this.view.$el.on('submit',(e)=>{
         e.preventDefault()
-        $el.find('.input').trigger('blur')
-        let value = $el.find('.input').val()
+        this.view.$el.find('.input').trigger('blur')
+        let value = this.view.$el.find('.input').val()
         window.eventHub.emit('search',value)
       })
       
@@ -80,9 +80,9 @@
         }
       })
       window.eventHub.on('selectSearchTab',(value)=>{
-        $el.find('.input').val(value)
+        this.view.$el.find('.input').val(value)
         // $el.find('.input').trigger('focus')
-        $el.find('.timesContainer').addClass('active')
+        this.view.$el.find('.timesContainer').addClass('active')
       })
     },
     fistLetterUpper(string){

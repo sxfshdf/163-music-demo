@@ -2,7 +2,7 @@
   let view = {
     el: '.head',
     init(){
-      $el = $(this.el)
+      this.$el = $(this.el)
     },
     template: `
       <div class="image-container">
@@ -23,7 +23,7 @@
       </div>
     `,
     render(data){
-      $el.html(this.template)
+      this.$el.html(this.template)
       // $el.find('.image').css('background-image',data.image)
       // $el.find('name').text(data.name)
     }

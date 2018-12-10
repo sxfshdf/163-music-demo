@@ -2,7 +2,7 @@
   let view = {
     el: '.hotSearchContainer',
     init(){
-      $el = $(this.el)
+      this.$el = $(this.el)
     },
     template: `
       <p class="hotSearch">热门搜索:</p>
@@ -13,15 +13,15 @@
       </ul>
     `,
     render(){
-      $el.html(this.template)
+      this.$el.html(this.template)
     },
     show(){
       // $el form.search-container
-      $el.siblings('.hotSearchContainer').addClass('active')
+      this.$el.addClass('active')
     },
     hide(){
       // $el form.search-container
-      $el.siblings('.hotSearchContainer').removeClass('active')
+      this.$el.removeClass('active')
     }
   }
 
@@ -37,15 +37,13 @@
       this.bindEventHub()
     },
     bindEvents(){
-      $el.on('click','li',(e)=>{
+      this.view.$el.on('click','li',(e)=>{
         let value = $(e.currentTarget).text()
         window.eventHub.emit('selectSearchTab',value)
       })
     },
     bindEventHub(){
       window.eventHub.on('search',(data)=>{
-        let className = $el.siblings('.hotSearchContainer').attr('class')
-        // $el form.search-container
         this.view.hide()
       })
       window.eventHub.on('resetSearch',()=>{

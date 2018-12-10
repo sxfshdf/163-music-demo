@@ -2,7 +2,7 @@
   let view = {
     el: '.searchResult',
     init(){
-      $el = $(this.el)
+      this.$el = $(this.el)
     },
     template: `
       <p class="result">匹配结果:</p>
@@ -10,7 +10,7 @@
       </ul>
     `,
     render(data){
-      $el.siblings('.searchResult').html(this.template)
+      this.$el.html(this.template)
       let {songs} = data
       songs.map((song)=>{
         let $li = $(`<li class="song">
@@ -25,15 +25,14 @@
         </a>
         </li>`)
         
-        $el.siblings('.searchResult').find('ul.songList').append($li)
+        this.$el.find('ul.songList').append($li)
       })
     },
     hide(){
-      $el.siblings('.searchResult').removeClass('active')
+      this.$el.removeClass('active')
     },
     show(){
-      // $el form.search-container
-      $el.siblings('.searchResult').addClass('active')
+      this.$el.addClass('active')
     }
   }
 
@@ -65,7 +64,7 @@
       this.bindEventHub()
     },
     bindEvents(){
-      $el.on('click','li',(e)=>{
+      this.view.$el.on('click','li',(e)=>{
         e.preventDefault()
         console.log(e.currentTarget)
       })

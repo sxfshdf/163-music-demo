@@ -2,7 +2,7 @@
   let view = {
     el: '.listRecommend',
     init(){
-      $el = $(this.el)
+      this.$el = $(this.el)
     },
     template: `
       <p class="listName">推荐歌单</p>
@@ -88,13 +88,13 @@
       </ul>
     `,
     render(){
-      $(this.el).html(this.template)
+      this.$el.html(this.template)
     },
     show(){
-      $(this.el).parent().addClass('active')
+      this.$el.parent().addClass('active')
     },
     hide(){
-      $(this.el).parent().removeClass('active')
+      this.$el.parent().removeClass('active')
     }
   }
 
