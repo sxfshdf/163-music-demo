@@ -16,10 +16,12 @@
       $el.html(this.template)
     },
     show(){
-      $el.addClass('active')
+      // $el form.search-container
+      $el.siblings('.hotSearchContainer').addClass('active')
     },
     hide(){
-      $el.removeClass('active')
+      // $el form.search-container
+      $el.siblings('.hotSearchContainer').removeClass('active')
     }
   }
 
@@ -27,7 +29,6 @@
 
   let controller = {
     init(view,model){
-      console.log(11)
       this.view = view
       this.view.init()
       this.model = model
@@ -35,8 +36,28 @@
       this.bindEvents()
       this.bindEventHub()
     },
-    bindEvents(){},
-    bindEventHub(){}
+    bindEvents(){
+      $el.on('click','li',(e)=>{
+        let value = $(e.currentTarget).text()
+        window.eventHub.emit('selectSearchTab',value)
+      })
+    },
+    bindEventHub(){
+      window.eventHub.on('search',(data)=>{
+        let className = $el.siblings('.hotSearchContainer').attr('class')
+        // $el form.search-container
+        this.view.hide()
+      })
+      window.eventHub.on('resetSearch',()=>{
+        this.view.show()
+      })
+      window.eventHub.on('noSearchValue',()=>{
+        this.view.show()
+      })
+      window.eventHub.on('selectSearchTab',(value)=>{
+        this.view.hide()
+      })
+    }
   }
 
   controller.init(view,model)

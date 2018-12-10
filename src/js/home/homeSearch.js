@@ -1,14 +1,10 @@
 {
-
-
-
   let view = {
-    el: '.page-search',
+    el: '.search-container',
     init(){
       $el = $(this.el)
     },
     template: `
-      
       <div class="input-container">
         <i class="fas fa-search searchIcon"></i>
         <input type="search" name="search" class="input" autocomplete="off" placeholder="搜索歌曲">
@@ -16,18 +12,15 @@
           <i class="fas fa-times-circle timesIcon"></i>
         </div>
       </div>
-      </form>
-      
-      
     `,
     render(){
       $el.html(this.template)
     },
     hide(){
-      $el.removeClass('active')
+      $el.parent().removeClass('active')
     },
     show(){
-      $el.addClass('active')
+      $el.parent().addClass('active')
     }
   }
 
@@ -61,15 +54,18 @@
           $el.find('.timesContainer').addClass('active')
         }else{
           $el.find('.timesContainer').removeClass('active')
+          window.eventHub.emit('noSearchValue')
         }
       })
       $el.find('.timesContainer').on('click',(e)=>{
         $el.find('.input').val('')
         $el.find('.input').trigger('focus')
         $(e.currentTarget).removeClass('active')
+        window.eventHub.emit('resetSearch')
       })
       $el.on('submit',(e)=>{
         e.preventDefault()
+        $el.find('.input').trigger('blur')
         let value = $el.find('.input').val()
         window.eventHub.emit('search',value)
       })
@@ -82,6 +78,11 @@
         }else{
           this.view.hide()
         }
+      })
+      window.eventHub.on('selectSearchTab',(value)=>{
+        $el.find('.input').val(value)
+        // $el.find('.input').trigger('focus')
+        $el.find('.timesContainer').addClass('active')
       })
     },
     fistLetterUpper(string){

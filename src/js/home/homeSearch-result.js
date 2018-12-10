@@ -10,7 +10,7 @@
       </ul>
     `,
     render(data){
-      $el.find('.searchResult').html(this.template)
+      $el.siblings('.searchResult').html(this.template)
       let {songs} = data
       songs.map((song)=>{
         let $li = $(`<li class="song">
@@ -25,15 +25,16 @@
         </a>
         </li>`)
         
-        $el.find('ul.songList').append($li)
+        $el.siblings('.searchResult').find('ul.songList').append($li)
       })
     },
     hide(){
-      $el.removeClass('active')
+      $el.siblings('.searchResult').removeClass('active')
     },
-    // show(){
-    //   $el.find('.searchResult').addClass('active')
-    // }
+    show(){
+      // $el form.search-container
+      $el.siblings('.searchResult').addClass('active')
+    }
   }
 
   let model = {
@@ -64,11 +65,14 @@
       this.bindEventHub()
     },
     bindEvents(){
-      
+      $el.on('click','li',(e)=>{
+        e.preventDefault()
+        console.log(e.currentTarget)
+      })
     },
     bindEventHub(){
       window.eventHub.on('search',(value)=>{
-        $el.find('.searchResult').addClass('active')
+        this.view.show()
 
         // let valueFilter = {
         //   searchFilter: [
@@ -81,6 +85,18 @@
         //   ]
         // }
         // console.log(valueFilter)
+        this.model.search(value).then(()=>{
+          this.view.render(this.model.data)
+        })
+      })
+      window.eventHub.on('resetSearch',()=>{
+        this.view.hide()
+      })
+      window.eventHub.on('noSearchValue',()=>{
+        this.view.hide()
+      })
+      window.eventHub.on('selectSearchTab',(value)=>{
+        this.view.show()
         this.model.search(value).then(()=>{
           this.view.render(this.model.data)
         })

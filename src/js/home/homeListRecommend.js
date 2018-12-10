@@ -1,11 +1,14 @@
 {
   let view = {
     el: '.listRecommend',
+    init(){
+      $el = $(this.el)
+    },
     template: `
       <p class="listName">推荐歌单</p>
       <ul class="recommed-list">
         <li class="listItem">
-          <a href="">
+          <a href="./detail.html">
             <div class="picture">
               <div class="mount">
                 <span class="fas fa-headphones headphone"></span>
@@ -18,7 +21,7 @@
           </a>
         </li>
         <li class="listItem">
-          <a href="">
+          <a href="./detail.html">
             <div class="picture">
               <div class="mount">
                 <span class="fas fa-headphones headphone"></span>
@@ -31,7 +34,7 @@
           </a>
         </li>
         <li class="listItem">
-          <a href="">
+          <a href="./detail.html">
             <div class="picture">
               <div class="mount">
                 <span class="fas fa-headphones headphone"></span>
@@ -44,7 +47,7 @@
           </a>
         </li>
         <li class="listItem">
-          <a href="">
+          <a href="./detail.html">
             <div class="picture">
               <div class="mount">
                 <span class="fas fa-headphones headphone"></span>
@@ -57,7 +60,7 @@
           </a>
         </li>
         <li class="listItem">
-          <a href="">
+          <a href="./detail.html">
             <div class="picture">
               <div class="mount">
                 <span class="fas fa-headphones headphone"></span>
@@ -70,7 +73,7 @@
           </a>
         </li>
         <li class="listItem">
-          <a href="">
+          <a href="./detail.html">
             <div class="picture">
               <div class="mount">
                 <span class="fas fa-headphones headphone"></span>
@@ -101,8 +104,10 @@
     init(view,model){
       this.model = model
       this.view = view
+      this.view.init()
       this.view.render(this.model.data)
       this.bindEventHub()
+      this.bindEvents()
     },
     bindEventHub(){
       window.eventHub.on('selectTab',(tabName)=>{
@@ -112,7 +117,8 @@
           this.view.hide()
         }
       })
-    }
+    },
+    bindEvents(){}
   }
 
   controller.init(view,model)

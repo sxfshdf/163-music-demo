@@ -1,14 +1,10 @@
 {
   let view = {
-    el: '.page-hotSong',
+    el: '.songList',
     template: `
-      <div class="banner">
-        <img src="./img/hotSong-banner.jpg" alt="">
-      </div>
-      <div class="songList-container">
-        <ul class="songList">
-        </ul>
-      </div>
+    <p class="listName">歌曲列表</p>
+      <ul class="songs">
+      </ul>
       <div class="tip"> 已经到最后一首啦 </div>
     `,
     render(data){
@@ -31,20 +27,14 @@
             </a>
           </li>
         `)
-        $(this.el).find('ul.songList').append($li)
+        $(this.el).find('ul.songs').append($li)
       })
-    },
-    show(){
-      $(this.el).addClass('active')
-    },
-    hide(){
-      $(this.el).removeClass('active')
     }
   }
 
   let model = {
-    data:{
-      songs:[]
+    data: {
+      songs: []
     },
     find() {
       let query = new AV.Query('Song')
@@ -61,20 +51,10 @@
 
   let controller = {
     init(view,model){
-      this.view = view
       this.model = model
+      this.view = view
       this.model.find().then(()=>{
         this.view.render(this.model.data)
-      })
-      this.bindEventHub()
-    },
-    bindEventHub(){
-      window.eventHub.on('selectTab',(tabName)=>{
-        if(tabName === 'page-hotSong'){
-          this.view.show()
-        }else{
-          this.view.hide()
-        }
       })
     }
   }
