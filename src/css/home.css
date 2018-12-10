@@ -3,6 +3,7 @@
   margin: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  transition: all 0.2s;
 }
 html,body{
   font-size: 14px;
@@ -110,7 +111,7 @@ main ul{
   padding-top: 24px;
 }
 .page-recommend.active{
-  /* display: block; */
+  display: block;
   
 }
 main .page-recommend .picture{
@@ -263,8 +264,11 @@ main .song i{
 }
 
 /* search */
-
 .page-search{
+  display: none;
+}
+.page-search.active{
+  display: block;
   margin-top: 20px;
 }
 .page-search .search-container{
@@ -283,6 +287,9 @@ main .song i{
   padding: 0 32px;
   border: 1px solid #ddd;
   position: relative;
+}
+.page-search .input-container.active{
+  border: 1px solid #666;
 }
 .page-search .input{
   width: 100%;
@@ -303,6 +310,9 @@ main .song i{
   color: #ddd;
   font-size: 13px;
 }
+.page-search .searchIcon.active{
+  color: #666;
+}
 .page-search .searchIcon{
   font-size: 13px;
   color: #ddd;
@@ -313,6 +323,7 @@ main .song i{
   margin: 0 9px;
   left: 0;
 }
+
 .page-search .timesIcon{
   font-size: 14px;
   color: #333;
@@ -320,6 +331,10 @@ main .song i{
   margin-top: -2px;
 }
 .page-search .timesContainer{
+  display: none
+}
+.page-search .timesContainer.active{
+  display: block;
   position: absolute;
   /* border: 1px solid red; */
   height: 36px;
@@ -330,10 +345,12 @@ main .song i{
   justify-content: center;
   align-items: center;
 }
-.page-search .hotSearchContainer{
+.page-search .hotSearchContainer.active{
   padding-top: 72px;
-  /* display: none; */
-  
+  display: block;
+}
+.page-search .hotSearchContainer{
+  display: none;
 }
 .page-search .hotSearch{
   padding-left: 16px;
@@ -358,8 +375,11 @@ main .song i{
   border-radius: 9999px;
   margin-right: 8px;
 }
-
 .page-search .searchResult{
+  display: none;
+}
+.page-search .searchResult.active{
+  display: block;
   padding-top: 72px;
 }
 .page-search .result{
