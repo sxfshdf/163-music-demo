@@ -12,17 +12,157 @@ html,body{
   font-family: -apple-system, BlinkMacSystemFont, 'Pingfang SC','Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-text-size-adjust: 100%;
   height: 100%;
+  background: #fbfbfb;
 }
 ul,li{
   list-style: none;
 }
 
 /*  discContainer */
+
+.page{
+  /* overflow: hidden; */
+    /* height: 100%; */
+}
+
 .discContainer{
-  height: 100%;
+  /* height: 100%; */
+  padding-top: 48px;
+  /* position: relative; */
 }
 .discContainer .discUp{
-  width: 24%;
-  height: 24%;
-  border: 1px solid red;
+  width: 240px;
+  height: 240px;
+  /* height: 56%; */
+  border: 6px solid #fff;
+  border-radius: 50%;
+  overflow: hidden;
+  /* text-align: center; */
+  margin: auto;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 28px 20px -2px rgba(0,0,0,0.1),
+              0 14px 14px -6px rgba(0,0,0,0.1);
+}
+.discContainer .imageWrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.discContainer .imageWrapper::after{
+  content: '';
+  display: block;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  background: #fbfbfb;
+  z-index: 2;
+  position: absolute;
+  border: 6px solid #fff;
+  box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.1),
+              inset 0px 10px 12px 0px rgba(0,0,0,0.1);
+}
+.discContainer .discUp img{
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.discContainer .discDown img{
+  filter: blur(4px);
+}
+.discContainer img.xxx{
+  width: 216px;
+  /* height: 50%; */
+  /* height: 64%; */
+  border-radius: 50%;
+  filter: blur(20px);
+  position: absolute;
+  top: 96px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.4;
+}
+.background{
+  height: 100%;
+  background-image: url(http://pj7wrbm0i.bkt.clouddn.com/cover-10.jpg);
+  background-position: center center;
+  background-size: auto;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  /* transform: scale(1.2); */
+  filter: blur(4px);
+}
+.background::after{
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  background: rgba(255,255,255,0.85);
+  height: 100%;
+  width: 100%; 
+  
+}
+
+
+/* content */ 
+
+.content{
+  width: 100%;
+  position: absolute;
+  margin-top: 268px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content .songInfo{
+  text-align: center;
+}
+.content .songName{
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+.content .singer{
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* play */
+
+.playArea{
+  width: 64px;
+  height: 64px;
+  background: #fff;
+  position: absolute;
+  bottom: 24px;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -24px;
+  box-shadow:  0px 4px 8px 2px rgba(0,0,0,0.1),
+               0px 16px 12px -1px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.playArea .play{
+  font-size: 16px;
+  display: none;
+  color: #666;
+  margin-left: 3px;
+}
+.playArea .pause{
+  font-size: 16px;
+  display: none;
+  color: #666;
+  margin-top: 1px;
+}
+.playArea .play.active,
+.playArea .pause.active{
+  display: block;
 }
