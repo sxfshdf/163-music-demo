@@ -18,6 +18,11 @@ ul,li{
   list-style: none;
 }
 
+@keyframes circle{
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg)}
+}
+
 /*  discContainer */
 
 .page{
@@ -27,7 +32,7 @@ ul,li{
 
 .discContainer{
   /* height: 100%; */
-  padding-top: 48px;
+  padding-top: 32px;
   /* position: relative; */
 }
 .discContainer .discUp{
@@ -45,12 +50,19 @@ ul,li{
   transform: translateX(-50%);
   box-shadow: 0 28px 20px -2px rgba(0,0,0,0.1),
               0 14px 14px -6px rgba(0,0,0,0.1);
+  
+}
+.discContainer .imageWrapper.playing{
+  animation-play-state: running;
 }
 .discContainer .imageWrapper{
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  height: 100%;
+  animation : circle 20s infinite linear;
+  animation-play-state: paused;
 }
 .discContainer .imageWrapper::after{
   content: '';
@@ -62,29 +74,17 @@ ul,li{
   z-index: 2;
   position: absolute;
   border: 6px solid #fff;
-  box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.1),
-              inset 0px 10px 12px 0px rgba(0,0,0,0.1);
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: inset 0px 0px 12px 10px rgba(0,0,0,0.1),
+              inset 0px 4px 6px 2px rgba(0,0,0,0.1);
 }
 .discContainer .discUp img{
   height: 100%;
   width: 100%;
   position: relative;
 }
-.discContainer .discDown img{
-  filter: blur(4px);
-}
-.discContainer img.xxx{
-  width: 216px;
-  /* height: 50%; */
-  /* height: 64%; */
-  border-radius: 50%;
-  filter: blur(20px);
-  position: absolute;
-  top: 96px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.4;
-}
+
 .background{
   height: 100%;
   background-image: url(http://pj7wrbm0i.bkt.clouddn.com/cover-10.jpg);
@@ -101,7 +101,7 @@ ul,li{
   display: block;
   position: absolute;
   top: 0;
-  background: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.9);
   height: 100%;
   width: 100%; 
   
@@ -137,14 +137,14 @@ ul,li{
 .playArea{
   width: 64px;
   height: 64px;
-  background: #fff;
+  background: #000;
   position: absolute;
-  bottom: 24px;
+  bottom: 32px;
   border-radius: 50%;
   left: 50%;
   margin-left: -24px;
-  box-shadow:  0px 4px 8px 2px rgba(0,0,0,0.1),
-               0px 16px 12px -1px rgba(0,0,0,0.1);
+  box-shadow:  0px 4px 8px 2px rgba(0,0,0,0.15),
+               0px 16px 12px -1px rgba(0,0,0,0.15);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -153,16 +153,26 @@ ul,li{
 .playArea .play{
   font-size: 16px;
   display: none;
-  color: #666;
+  color: #fff;
   margin-left: 3px;
 }
 .playArea .pause{
   font-size: 16px;
   display: none;
-  color: #666;
+  color: #fff;
   margin-top: 1px;
 }
 .playArea .play.active,
 .playArea .pause.active{
   display: block;
+}
+
+.clickArea{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* border: 10px solid red; */
+  z-index: 10;
 }
