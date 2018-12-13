@@ -16,7 +16,7 @@
         let $li = $(`
           <li class="song">
             <p class="order">${(n<10)?'0'+n:n}</p>
-            <a href="">
+            <a href="./song.html?id=${song.id}">
               <div class="songInfo">
                 <p class="songName">${song.name}</p>
                 <p class="singer">${song.singer}</p>
@@ -41,8 +41,7 @@
       query.descending('updatedAt')
       return query.find().then((songs) => {
         this.data.songs = songs.map((song) => {
-          let songs = { id: song.id, ...song.attributes }
-          return songs
+          return Object.assign({ id: song.id}, song.attributes)
         })
         return songs
       })

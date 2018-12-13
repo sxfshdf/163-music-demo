@@ -25,8 +25,6 @@
         this.$el.find('.imageWrapper').addClass('playing')
       }
       let allP = this.$el.find('.lines>p')
-      console.log('-------')
-      console.log(allP.length)
       if(allP.length <= 1){
         let lyric = data.lyric
         let lyricObject = {}

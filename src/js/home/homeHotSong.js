@@ -51,8 +51,7 @@
       query.descending('updatedAt')
       return query.find().then((songs) => {
         this.data.songs = songs.map((song) => {
-          let songs = { id: song.id, ...song.attributes }
-          return songs
+          return Object.assign({id: song.id}, song.attributes)
         })
         return songs
       })
