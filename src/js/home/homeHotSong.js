@@ -20,7 +20,7 @@
         let $li = $(`
           <li class="song">
             <p class="order">${(n<10)?'0'+n:n}</p>
-            <a href="">
+            <a href="./song.html?id=${song.id}">
               <div class="songInfo">
                 <p class="songName">${song.name}</p>
                 <p class="singer">${song.singer}</p>

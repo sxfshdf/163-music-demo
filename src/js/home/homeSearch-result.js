@@ -14,7 +14,7 @@
       let {songs} = data
       songs.map((song)=>{
         let $li = $(`<li class="song">
-        <a href="">
+        <a href="./song.html?id=${song.id}">
           <div class="songInfo">
             <p class="songName">${song.name}</p>
             <p class="singer">${song.singer}</p>
@@ -64,10 +64,6 @@
       this.bindEventHub()
     },
     bindEvents(){
-      this.view.$el.on('click','li',(e)=>{
-        e.preventDefault()
-        console.log(e.currentTarget)
-      })
     },
     bindEventHub(){
       window.eventHub.on('search',(value)=>{

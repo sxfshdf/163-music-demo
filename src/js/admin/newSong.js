@@ -20,8 +20,8 @@
           <input type="text" id="cover" name="cover" value="__cover__">
         </div>
         <div class="raw">
-          <label for="cover">歌词</label>
-          <textarea rows="5" id="cover" name="cover">__lyric__</textarea>
+          <label for="lyric">歌词</label>
+          <textarea rows="5" id="lyric" name="lyric">__lyric__</textarea>
         </div>
         <div class="raw actions">
           <button class="save" type="sumit">保存</button>
@@ -31,7 +31,7 @@
     `,
     render(data = {}) {
 
-      let placeHolder = ['name', 'url', 'singer','cover']
+      let placeHolder = ['name', 'url', 'singer','cover','lyric']
       let html = this.template
       placeHolder.map((string) => {
         html = html.replace(`__${string}__`, data[string] || '')
@@ -59,7 +59,9 @@
       song.set('singer', data.singer)
       song.set('url', data.url)
       song.set('cover', data.cover)
+      song.set('lyric', data.lyric)
       return song.save().then((newSong) => {
+        console.log(newSong)
         let { id, attributes } = newSong
         let createDate = newSong.createdAt.toLocaleDateString()
         let createHours = time(newSong.createdAt.getHours())
@@ -92,6 +94,7 @@
       song.set('singer', data.singer)
       song.set('url', data.url)
       song.set('cover', data.cover)
+      song.set('lyric', data.lyric)
       return song.save().then((newSong) => {
         let { id, attributes } = newSong
 
@@ -155,7 +158,7 @@
       $el.on('submit', 'form', (e) => {
         e.preventDefault()
         if (this.model.data.id) {
-          let need = 'name singer url cover'.split(' ')
+          let need = 'name singer url cover lyric'.split(' ')
           let data = {}
           need.map((string) => {
             data[string] = $el.find(`[name=${string}]`).val()
@@ -165,7 +168,7 @@
             window.eventHub.emit('update',this.model.data)
           })
         } else {
-          let need = 'name singer url cover'.split(' ')
+          let need = 'name singer url cover lyric'.split(' ')
           let data = {}
           need.map((string) => {
             data[string] = $el.find(`[name=${string}]`).val()

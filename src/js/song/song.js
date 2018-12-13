@@ -17,11 +17,32 @@
         audio.onended = ()=>{
           window.eventHub.emit('songEnded')
         }
+        audio.ontimeupdate = ()=>{this.showLyric(audio.currentTime)}
       }
       if(data.audioStatus === 'paused'){
         this.$el.find('.imageWrapper').removeClass('playing')
       }else{
         this.$el.find('.imageWrapper').addClass('playing')
+      }
+      let allP = this.$el.find('.lines>p')
+      console.log('-------')
+      console.log(allP.length)
+      if(allP.length <= 1){
+        let lyric = data.lyric
+        let lyricObject = {}
+        lyric.split('\n').map((line)=>{
+          let times = line.match(/\d{2}:\d{2}/g)
+          let string = line.replace(/\[.+?\]/g, '')
+          if(Array.isArray(times)){
+            times.map((time)=>{
+              lyricObject[time] = string
+              if(string){
+                let $p = $(`<p data-time = "${time}">${string}</p>`)
+                this.$el.find('.lines').append($p)
+              }
+            })
+          }
+        })
       }
     },
     play() {
@@ -34,6 +55,24 @@
       this.$el.find('.play').addClass('active')
       this.$el.find('.pause.active').removeClass('active')
     },
+    showLyric(time){
+      let minute = Math.floor(time/60) + ''
+      let second = Math.floor(time%60) + ''
+      second = second.length === 2? second : '0'+second
+      minute = minute.length === 2? minute : '0'+minute
+      let currentTime = minute + ':' + second
+      // console.log(currentTime)
+      let allP = this.$el.find('.lines>p')
+      for(let i=0; i<allP.length; i++){
+        if( $(allP[i]).attr('data-time') === currentTime){
+          $(allP[i]).addClass('active').siblings('.active')
+          .removeClass('active')
+          this.$el.find('.lines').css({transform: 'translateY('+(-24*(i-1))+'px)'})
+          break
+        }
+        
+      }
+    }
   }
 
   let model = {
