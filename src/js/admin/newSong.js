@@ -20,7 +20,7 @@
           <input type="text" id="cover" name="cover" value="__cover__">
         </div>
         <div class="raw">
-          <label for="lyric">歌词</label>
+          <label class="lyric" for="lyric">歌词</label>
           <textarea rows="5" id="lyric" name="lyric">__lyric__</textarea>
         </div>
         <div class="raw actions">
@@ -178,8 +178,6 @@
               window.eventHub.emit('create', JSON.parse(JSON.stringify(this.model.data)))
             })
         }
-
-
       })
     }
 

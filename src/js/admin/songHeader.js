@@ -2,7 +2,10 @@
   let view = {
     el: 'header',
     template: `
-     <p>歌曲列表</p>
+    <div class="headerWrapper">
+     <p>主页</p>
+     <button class="createList">创建歌单</d>
+     </div>
     `,
     render(data) {
       $(this.el).html(this.template)
@@ -18,6 +21,13 @@
     },
     deleteSong() {
       $(this.el).find('p').text('删除歌曲')
+    },
+    homePage(){
+      $(this.el).find('p').text('主页')
+    },
+    allSongList(){
+      $(this.el).find('p').text('歌单列表')
+      $(this.el).find('.createList').css('display','block')
     }
   }
 
@@ -28,7 +38,14 @@
       this.view = view
       this.model = model
       this.view.render(this.model.data)
+      this.bindEvents()
       this.bindEventHub()
+    },
+    bindEvents(){
+      console.log($(this.view.el).find('button.createList'))
+      $(this.view.el).on('click','.createList',(e)=>{
+        window.eventHub.emit('createList')
+      })
     },
     bindEventHub() {
       window.eventHub.on('upload', () => {
@@ -61,6 +78,24 @@
 
       window.eventHub.on('deleteSong', () => {
         this.view.SongList()
+      })
+      window.eventHub.on('selectTab',(tabName)=>{
+        if(tabName === 'home'){
+          this.view.homePage()
+          $(this.view.el).find('.createList').css('display','none')
+          
+        }else if(tabName === 'songList'){
+          this.view.SongList()
+          $(this.view.el).find('.createList').css('display','none')
+          
+        }else if(tabName === 'song'){
+          this.view.allSongList()
+          $(this.view.el).siblings().css('display','none').siblings('header').css('display','block')
+        }
+      })
+      window.eventHub.on('createList',()=>{
+        $(this.view.el).find('.createList').css('display','none')
+        
       })
     }
   }

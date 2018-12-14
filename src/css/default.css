@@ -16,7 +16,7 @@ body{
 button{
   outline: none;
 }
-input{
+input,textarea{
   font: inherit;
 }
 ul,li{
@@ -41,11 +41,26 @@ aside{
 aside .content{
   position: fixed;
   left: 32px;
-  top: 132px;
+  top: 64px;
   display: flex;
-  height: 380px;
+  height: 560px;
   flex-direction: column;
   justify-content: space-between;
+}
+aside .nav{
+  display: flex;
+  flex-direction: column;
+}
+aside .nav li{
+  margin: 10px 0;
+  color: rgba(255,255,255,0.6);
+}
+aside .nav li:hover{
+  color: #fff;
+}
+aside .nav li.active{
+  color: #fff;
+  font-weight: bold;
 }
 aside .logoArea{
   display: flex;
@@ -95,6 +110,13 @@ main header{
   border-bottom: 1px solid #d1d4dd;
   position: fixed;
   top: 0;
+  z-index: 1;
+  
+  /* visibility:  */
+}
+main header .headerWrapper{
+  display: flex;
+  align-items: center;
 }
 main header p{
   font-size: 16px;
@@ -103,8 +125,13 @@ main header p{
   font-weight: bold;
   color: #e54352;
 }
+main header button.createList{
+  display: none;
+  position: fixed;
+  right: 40px;
+}
 main .songList{
-  /* display: none; */
+  display: none;
   /* overflow: hidden; */
 }
 main .newSong{
@@ -143,7 +170,7 @@ table th{
   /* color: #666; */
   color: #a5a9b3;
   font-size: 14px;
-  background: #fefefe;
+  /* background: #fefefe; */
   font-weight: normal;
 }
 table th.name{
@@ -191,13 +218,13 @@ table .delete{
 main form{
   /* border: 1px solid red; */
   margin: auto;
-  width: 400px;
+  width: 500px;
   /* text-align: center; */
-  margin-top: 120px;
+  margin-top: 96px;
 }
 main form input{
   width: 400px;
-  margin: 10px 0 24px 0;
+  margin: 12px 0;
   height: 40px;
   border-radius: 2px;
   border: 1px solid #ddd;
@@ -215,7 +242,14 @@ main form textarea{
 }
 main form .raw{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+}
+main form .raw .lyric{
+  margin-top: -52px;
+}
+main form .raw.actions{
+  padding-left: 4em;
 }
 main form label{
   display: inline-block;
@@ -229,7 +263,7 @@ main form .actions{
 main button{
   height: 40px;
   width: 96px;
-  background: linear-gradient(to bottom, #ff4760 0%,#e54352 100%);
+  background: #e54352;
   border: none;
   color: #fff;
   border-radius: 2px;
@@ -241,8 +275,9 @@ main button.cancel{
   margin-left: 20px;
 }
 main button.save:hover,
-main button.delete:hover{
-  background: #e54352;
+main button.delete:hover,
+main button.createList:hover{
+  background: #dd3d4c;
 }
 main button.cancel:hover{
   border: 1px solid #666;
@@ -289,3 +324,144 @@ main .delete-content .strong{
   height: 72px;
   opacity: 0.8;
 }
+
+main .home{
+  display: block;
+  padding-top: 96px;
+  /* border: 1px solid red; */
+  padding-left: 28px;
+  padding-right: 28px;
+}
+main .home .wrapper{
+  display: flex;
+  flex-direction: column;
+}
+main .home .homeListHeadWrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+main .home h4.listTitle,
+main .home h4.songsTitle{
+  color: #e54352;
+  position: relative;
+  font-size: 16px;
+}
+main .home .list{
+  overflow: hidden;
+  /* position: relative; */
+  /* height: 272px; */
+}
+main .home .list ul{
+  margin-top: 20px;
+  display: flex;
+  /* position: absolute; */
+  /* left: 0; */
+  justify-content: space-between;
+}
+main .home .list ul>li{
+  font-size: 13px;
+  align-items: center;
+  margin-right: 12px;
+  /* width: 10vw; */
+}
+main .home .list ul>li:last-child{
+  margin-right: 0;
+}
+main .home .listInfo{
+  margin-top: 16px;
+  width: 10vw;
+}
+main .home .listName{
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+}
+main .home .listCreator{
+  color: #666;
+  margin-top: 2px;
+  font-size: 11px;
+}
+main .home .listCover{
+  height: 10vw;
+  width: 10vw;
+  /* margin-right: 12px; */
+  background: #000;
+  border-radius: 8px;
+  box-shadow: 0 15px 24px -6px rgba(0,0,0,0.1), 0 12px 12px -6px rgba(0,0,0,0.2);
+}
+main .home .listCover img{
+  width: 100%;
+  border-radius: 4px;
+}
+
+main .home .songs{
+  margin-top: 32px;
+}
+main .home  .tableContainer{
+  margin-top: 8px;
+  display: block;
+}
+main .home table{
+  width: 100%;
+}
+main .home table th{
+  text-align: left;
+  border-bottom: none;
+  padding: 0 0 0 12px;
+  /* color: #666; */
+  color: #a5a9b3;
+  font-size: 12px;
+  background: #fefefe;
+  font-weight: normal;
+  height: 40px;
+}
+main .home table tr{
+  height: 48px;
+  border-bottom: none;
+}
+main .home table td{
+  color: #333;
+  word-break: break-all;
+  font-size: 14px;
+  padding: 0 0 0 12px;
+}
+main .home table tr th{
+  height: 40px;
+  /* border-bottom: 1px solid #e6e9f0; */
+}
+
+main .newSongList{
+  display: none;
+}
+main .newSongList form label.listDescription{
+  margin-top: -120px;
+}
+main .newSongList form label{
+  width: 5em;
+}
+main .newSongList form .actions{
+  padding-left: 5em;
+}
+main .allSongList{
+  display: none;
+}
+main .allSongList .wrapper{
+  width: 90%;
+  margin: auto;
+  margin-top: 96px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+main .allSongList table tr img{
+  width: 72px;
+  height: 72px;
+  border-radius: 4px;
+}
+main .allSongList table td{
+  padding: 12px 0 12px 24px;
+}
+/* main .allSongList table tr{
+  border-bottom: none;
+} */

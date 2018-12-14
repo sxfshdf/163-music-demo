@@ -175,6 +175,14 @@
           })
         })
       })
+      window.eventHub.on('selectTab',(tabName)=>{
+        if(tabName === 'songList'){
+          this.view.showSongList()
+          $(this.view.el).siblings().css('visib','none').siblings('header').css('display','block')
+        }else{
+          this.view.hideSongList()
+        }
+      })
     }
   }
 

@@ -6,6 +6,11 @@
       <img src="./img/music.svg" alt="" class="logo">
       <p>Upload your songs .</p>
     </div>
+      <ul class="nav">
+        <li data-name="home" class="active">主页</li>
+        <li data-name="songList">歌曲列表</li>
+        <li data-name="song">歌单列表</li>
+      </ul>
       <div class="uploadArea">
         <div id="uploadContainer" class="uploadContainer">
           <span id="plus" class="fas fa-plus plus"></span>
@@ -19,6 +24,9 @@
     },
     render(data) {
       $(this.el).html(this.template)
+    },
+    navChange(e){
+      $(e).addClass('active').siblings('.active').removeClass('active')
     }
   }
 
@@ -28,8 +36,19 @@
     init(view, model) {
       this.view = view
       this.model = model
-      this.view.render(this.model.data)
+      this.view.render()
       this.initQiniu()
+      this.bindEvents()
+    },
+    bindEvents(){
+      $(this.view.el).on('click','li',(e)=>{
+        e.preventDefault()
+        this.view.navChange(e.currentTarget)
+        let $e = $(e.currentTarget)
+        let className = $e.attr('data-name')
+        let tabName = className.split(' ')[0]
+        window.eventHub.emit('selectTab',tabName)
+      })
     },
     initQiniu() {
       var uploader = Qiniu.uploader({
