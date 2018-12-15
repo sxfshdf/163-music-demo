@@ -43,7 +43,6 @@
     bindEvents(){},
     bindEventHub(){
       window.eventHub.on('selectList',(data)=>{
-        console.log(1)
         this.view.render(data)
       })
     }

@@ -30,7 +30,6 @@
       </form>
     `,
     render(data = {}) {
-
       let placeHolder = ['name', 'url', 'singer','cover','lyric']
       let html = this.template
       placeHolder.map((string) => {
@@ -61,7 +60,6 @@
       song.set('cover', data.cover)
       song.set('lyric', data.lyric)
       return song.save().then((newSong) => {
-        console.log(newSong)
         let { id, attributes } = newSong
         let createDate = newSong.createdAt.toLocaleDateString()
         let createHours = time(newSong.createdAt.getHours())

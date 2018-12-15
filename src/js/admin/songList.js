@@ -172,6 +172,7 @@
         this.model.delete(song).then((data) => {
           this.model.find().then((data) => {
             this.view.render(this.model.data)
+            window.eventHub.emit('deleteSongDone',JSON.parse(JSON.stringify(this.model.data)))
           })
         })
       })

@@ -283,10 +283,12 @@ main button.cancel:hover{
   border: 1px solid #666;
 }
 
-main .songDelete{
+main .songDelete,
+main .listDelete{
   display: none;
 }
-main .deleteSong{
+main .deleteSong,
+main .deleteList{
   display: flex;
   justify-content: center;
   height: 100vh;
@@ -344,20 +346,25 @@ main .home .homeListHeadWrapper{
 main .home h4.listTitle,
 main .home h4.songsTitle{
   color: #e54352;
-  position: relative;
+  /* position: relative; */
   font-size: 16px;
+}
+main .home .homeListHeadWrapper i{
+  width: 20px;
+  height: 20px;
+  background: #eee;
 }
 main .home .list{
   overflow: hidden;
-  /* position: relative; */
-  /* height: 272px; */
+  position: relative;
+  height: 272px;
 }
 main .home .list ul{
   margin-top: 20px;
   display: flex;
-  /* position: absolute; */
-  /* left: 0; */
-  justify-content: space-between;
+  position: absolute;
+  left: 0;
+  /* justify-content: space-between; */
 }
 main .home .list ul>li{
   font-size: 13px;
@@ -373,12 +380,15 @@ main .home .listInfo{
   width: 10vw;
 }
 main .home .listName{
-  font-size: 13px;
+  font-size: 12px;
   font-weight: bold;
   color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 main .home .listCreator{
-  color: #666;
+  color: #999;
   margin-top: 2px;
   font-size: 11px;
 }
@@ -390,24 +400,40 @@ main .home .listCover{
   border-radius: 8px;
   box-shadow: 0 15px 24px -6px rgba(0,0,0,0.1), 0 12px 12px -6px rgba(0,0,0,0.2);
 }
+main .home .listCover:hover{
+  box-shadow: 0 15px 24px -6px rgba(0,0,0,0.1), 0 12px 12px -6px rgba(0,0,0,0.5);
+}
+
+
 main .home .listCover img{
   width: 100%;
   border-radius: 4px;
 }
 
 main .home .songs{
-  margin-top: 32px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 main .home  .tableContainer{
-  margin-top: 8px;
+  margin-top: 4px;
   display: block;
 }
 main .home table{
-  width: 100%;
+  width: 760px;
+}
+main .home table th.name{
+  width: 220px;
+}
+main .home table th.singer{
+  width: 140px;
+}
+main .home table th.createTime,
+main .home table th.updateTime{
+  width: 200px;
 }
 main .home table th{
   text-align: left;
-  border-bottom: none;
+  border-bottom: 1px solid #eee;
   padding: 0 0 0 12px;
   /* color: #666; */
   color: #a5a9b3;
@@ -423,13 +449,14 @@ main .home table tr{
 main .home table td{
   color: #333;
   word-break: break-all;
-  font-size: 14px;
+  font-size: 13px;
   padding: 0 0 0 12px;
 }
 main .home table tr th{
   height: 40px;
   /* border-bottom: 1px solid #e6e9f0; */
 }
+
 
 main .newSongList{
   display: none;
@@ -465,3 +492,9 @@ main .allSongList table td{
 /* main .allSongList table tr{
   border-bottom: none;
 } */
+main .allSongList table th.cover{
+  width: 14%;
+}
+main .allSongList table th.listName{
+  width: 22%;
+}

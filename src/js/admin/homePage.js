@@ -5,127 +5,28 @@
       this.$el = $(this.el)
     },
     template: `
-    <div class="wrapper">
-      <div class="list">
-        <div class="homeListHeadWrapper">
-           <h4 class="listTitle">最新歌单</h4>
-        </div>
-        <ul>
-          <li>
-            <div class="listCover">
-              <img src="./img/home/list-cover-1.jpg" alt="">
-            </div>
-            <div class="listInfo">
-              <p class="listName">我是歌单名称哈哈哈</p>
-              <p class="listCreator">我是创建者</p>
-            </div>
-          </li>
-          <li>
-            <div class="listCover">
-              <img src="./img/home/list-cover-1.jpg" alt="">
-            </div>
-            <div class="listInfo">
-              <p class="listName">我是歌单名称哈哈哈</p>
-              <p class="listCreator">我是创建者</p>
-            </div>
-          </li>
-          <li>
-            <div class="listCover">
-              <img src="./img/home/list-cover-1.jpg" alt="">
-            </div>
-            <div class="listInfo">
-              <p class="listName">我是歌单名称哈哈哈</p>
-              <p class="listCreator">我是创建者</p>
-            </div>
-          </li>
-          <li>
-            <div class="listCover">
-              <img src="./img/home/list-cover-1.jpg" alt="">
-            </div>
-            <div class="listInfo">
-              <p class="listName">我是歌单名称哈哈哈</p>
-              <p class="listCreator">我是创建者</p>
-            </div>
-          </li>
-          <li>
-            <div class="listCover">
-              <img src="./img/home/list-cover-1.jpg" alt="">
-            </div>
-            <div class="listInfo">
-              <p class="listName">我是歌单名称哈哈哈</p>
-              <p class="listCreator">我是创建者</p>
-            </div>
-          </li>
-          <li>
-            <div class="listCover">
-              <img src="./img/home/list-cover-1.jpg" alt="">
-            </div>
-            <div class="listInfo">
-              <p class="listName">我是歌单名称哈哈哈</p>
-              <p class="listCreator">我是创建者</p>
-            </div>
-          </li>
-          <li>
-            <div class="listCover">
-              <img src="./img/home/list-cover-1.jpg" alt="">
-            </div>
-            <div class="listInfo">
-              <p class="listName">我是歌单名称哈哈哈</p>
-              <p class="listCreator">我是创建者</p>
-            </div>
-          </li>
-        </ul>
+      <div class="wrapper">
+        <div class="list"></div>
+        <div class="songs"></div>
       </div>
-      <div class="songs">
-        <h4 class="songsTitle">最新歌曲</h4>
-        <div class="tableContainer">
-          <table>
-            <thead>
-              <tr>
-                <th class="name">歌名</th>
-                <th class="singer">歌手</th>
-                <th class="createTime">创建时间</th>
-                <th class="updateTime">更新时间</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="name">天后天后天后天</td>
-                <td class="singer">陈势安陈</td>
-                <td class="createTime">2018/12/5 下午10:57:23</td>
-                <td class="updateTime">2018/12/5 下午10:57:23</td>
-               
-              </tr>
-              <tr>
-                <td class="name">天后天后天后天</td>
-                <td class="singer">陈势安陈</td>
-                <td class="createTime">2018/12/5 下午10:57:23</td>
-                <td class="updateTime">2018/12/5 下午10:57:23</td>
-               
-                
-              </tr>
-              <tr>
-                <td class="name">天后天后天后天</td>
-                <td class="singer">陈势安陈</td>
-                <td class="createTime">2018/12/5 下午10:57:23</td>
-                <td class="updateTime">2018/12/5 下午10:57:23</td>
-                
-              </tr>
-              <tr>
-                <td class="name">天后天后天后天</td>
-                <td class="singer">陈势安陈</td>
-                <td class="createTime">2018/12/5 下午10:57:23</td>
-                <td class="updateTime">2018/12/5 下午10:57:23</td>
-                
-              </tr>
-
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
     `,
-    render() {
+    // renderSongs(data) {
+    //   this.$el.html(this.template)
+    //   let { songs } = data
+    //   let tdDoms = songs.map((song)=>{
+    //     return `<tr>
+    //     <td class="name">${song.name}</td>
+    //     <td class="singer">${song.singer}</td>
+    //     <td class="createTime">${song.createTime}</td>
+    //     <td class="updateTime">${song.updateTime}</td>
+    //   </tr>`
+    //   })
+    //   this.$el.find('tbody').empty()
+    //   tdDoms.map((tdDom)=>{
+    //     this.$el.find('tbody').append(tdDom)
+    //   })
+    // },
+    render(data){
       this.$el.html(this.template)
     },
     show() {
@@ -143,10 +44,9 @@
       this.view = view
       this.view.init()
       this.model = model
-      this.view.render()
+      this.view.render(this.model.data)
       this.bindEvents()
       this.bindEventHub()
-
     },
     bindEvents() {},
     bindEventHub() {
@@ -158,7 +58,9 @@
           this.view.hide()
         }
       })
-
+      window.eventHub.on('upload',()=>{
+        this.view.hide()
+      })
     }
   }
 

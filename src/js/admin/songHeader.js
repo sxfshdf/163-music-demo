@@ -28,6 +28,17 @@
     allSongList(){
       $(this.el).find('p').text('歌单列表')
       $(this.el).find('.createList').css('display','block')
+    },
+    createPlaylist(){
+      $(this.el).find('p').text('创建歌单')
+    },
+    editPlaylist(){
+      $(this.el).find('p').text('编辑歌单')
+      $(this.el).find('.createList').css('display','none')
+    },
+    deletePlaylist(){
+      $(this.el).find('p').text('删除歌单')
+      $(this.el).find('.createList').css('display','none')
     }
   }
 
@@ -42,7 +53,6 @@
       this.bindEventHub()
     },
     bindEvents(){
-      console.log($(this.view.el).find('button.createList'))
       $(this.view.el).on('click','.createList',(e)=>{
         window.eventHub.emit('createList')
       })
@@ -95,7 +105,28 @@
       })
       window.eventHub.on('createList',()=>{
         $(this.view.el).find('.createList').css('display','none')
-        
+        this.view.createPlaylist()
+      })
+      window.eventHub.on('createPlaylist',(data)=>{
+        this.view.allSongList()
+      })
+      window.eventHub.on('createListCancel',(data)=>{
+        this.view.allSongList()
+      })
+      window.eventHub.on('editList',()=>{
+        this.view.editPlaylist()
+      })
+      window.eventHub.on('updatePlaylist',()=>{
+        this.view.allSongList()
+      })
+      window.eventHub.on('deleteList',()=>{
+        this.view.deletePlaylist()
+      })
+      window.eventHub.on('listDeleteCancel',()=>{
+        this.view.allSongList()
+      })
+      window.eventHub.on('listDeleteYes',()=>{
+        this.view.allSongList()
       })
     }
   }
