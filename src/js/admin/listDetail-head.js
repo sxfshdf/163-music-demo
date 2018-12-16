@@ -6,11 +6,16 @@
     <div class="listInfo">
       <p class="listName">__name__</p>
       <p class="listCreator">admin</p>
+      <div class="timeInfo">
+        <p class="create">创建时间 : __createTime__<p>
+        <p class="update">更新时间 : __updateTimeTime__<p>
+      </div>
     </div>
     `,
     render(data={}){
       let html = this.template
       html = html.replace('__url__',data.cover || '').replace('__name__',data.name || '')
+      .replace('__createTime__',data.createTime).replace('__updateTimeTime__',data.updateTime)
       $(this.el).html(html)
     }
   }

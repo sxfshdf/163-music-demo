@@ -159,7 +159,8 @@
       window.eventHub.on('addSongCancel',()=>{
         this.view.listDetail()
       })
-      window.eventHub.on('homeToDetail',()=>{
+      window.eventHub.on('homeToDetail',(playlist)=>{
+        this.model.data.playlist = playlist
         this.view.listDetail()
       })
     }

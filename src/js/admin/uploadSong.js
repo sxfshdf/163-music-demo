@@ -63,9 +63,9 @@
       })
     },
     bindEventHub(){
-      // window.eventHub.on('upload',()=>{
-      //   this.view.deActive()
-      // })
+      window.eventHub.on('upload',()=>{
+        this.view.deActive()
+      })
       window.eventHub.on('addSong',()=>{
         this.view.deActive()
       })
@@ -97,6 +97,9 @@
         this.view.activeSonglist()
       })
       window.eventHub.on('deleteSong',()=>{
+        this.view.activeSonglist()
+      })
+      window.eventHub.on('create',()=>{
         this.view.activeSonglist()
       })
       window.eventHub.on('cancel',()=>{
