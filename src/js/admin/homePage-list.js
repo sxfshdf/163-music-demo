@@ -1,4 +1,5 @@
 {
+
   let view = {
     el: '.list',
     init() {
@@ -7,13 +8,10 @@
     template: `
         <div class="homeListHeadWrapper">
            <h4 class="listTitle">最新歌单</h4>
-           <div class="actions">
-            <i class="fas fa-angle-left left"></i>
-            <i class="fas fa-angle-right right"></i>
-           </div>
         </div>
-        <ul>
-          <li>
+        <div class="swiper-container">
+        <ul class="swiper-wrapper">
+          <li class="swiper-slide">
             <div class="listCover">
               <img src="./img/home/list-cover-1.jpg" alt="">
             </div>
@@ -23,12 +21,15 @@
             </div>
           </li>
         </ul>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        </div>
     `,
     render(data){
       this.$el.html(this.template)
       let { playlists } = data
       let liDoms = playlists.map((list)=>{
-        return `<li>
+        return `<li data-name=${list.id} class="swiper-slide">
         <div class="listCover">
           <img src="${list.cover}" alt="">
         </div>
@@ -53,7 +54,7 @@
     find(){
       let query = new AV.Query('Playlist')
       query.descending('updatedAt')
-      // query.limit(7)
+      query.limit(7)
       // query.ascending('createdAt')
       return query.find().then((playlist) => {
         this.data.playlists = playlist.map((list) => {
@@ -100,45 +101,21 @@
       this.bindEventHub()
     },
     bindEvents() {
-      this.view.$el.on('click','.left',(e)=>{
-        if(this.isAnimate) return
+      this.view.$el.on('click','.right',()=>{
         let itemWidth = this.view.$el.find('li').outerWidth(true)
-        let wrapperWidth = this.view.$el.width()
-        let rowCount = Math.floor(wrapperWidth/itemWidth)
-        console.log('------')
-        console.log(this.view.$el.find('ul').css('left'))
-        if(!this.isToStart){
-          this.isAnimate = true
-          this.view.$el.find('ul').animate({
-            left: '+=' + rowCount*itemWidth
-          },400,()=>{
-            console.log('xxxxxx')
-            console.log(this.view.$el.find('ul').css('left'))
-            this.isAnimate = false
-            this.isToEnd = false
-            if( parseFloat(this.view.$el.find('ul').css('left')) >= 0){
-              this.isToStart = true
-            }
-          })
-        }
+        console.log(itemWidth)
       })
-      this.view.$el.on('click','.right',(e)=>{
-        if(this.isAnimate) return
-        let itemWidth = this.view.$el.find('li').outerWidth(true)
-        let wrapperWidth = this.view.$el.width()
-        let rowCount = Math.floor(wrapperWidth/itemWidth)
-        if(!this.isToEnd){
-          this.isAnimate = true
-          this.view.$el.find('ul').animate({
-            left: '-=' + itemWidth*rowCount
-          },400,()=>{
-            this.isAnimate = false
-            this.isToStart = false
-            if( parseFloat(this.view.$el.width()) - parseFloat(this.view.$el.find('ul').css('left')) >= parseFloat(this.view.$el.find('ul').css('width'))){
-              this.isToEnd = true
-            }
-          })
+      this.view.$el.on('click','li',(e)=>{
+        let $e = $(e.currentTarget)
+        let playlist
+        let listId = $e.attr('data-name')
+        let {playlists} = this.model.data
+        for(let i=0; i<playlists.length; i++){
+          if(playlists[i].id === listId){
+            playlist = playlists[i]
+          }
         }
+        window.eventHub.emit('homeToDetail',playlist)
       })
     },
     bindEventHub() {
@@ -155,7 +132,6 @@
       window.eventHub.on('listDeleteDone',(data)=>{
           this.view.render(data)
       })
-      
     }
   }
   controller.init(view, model)

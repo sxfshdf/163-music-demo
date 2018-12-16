@@ -61,6 +61,9 @@
       window.eventHub.on('upload',()=>{
         this.view.hide()
       })
+      window.eventHub.on('homeToDetail',()=>{
+        this.view.hide()
+      })
     }
   }
 

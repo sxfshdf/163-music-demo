@@ -184,6 +184,9 @@
       window.eventHub.on('updatePlaylist',()=>{
         this.view.hide()
       })
+      window.eventHub.on('upload',()=>{
+        this.view.hide()
+      })
     },
 
   }

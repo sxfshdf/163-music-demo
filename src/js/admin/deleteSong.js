@@ -56,6 +56,9 @@
         this.model.data = data
         this.view.render(this.model.data)
       })
+      window.eventHub.on('upload',()=>{
+        this.view.hideDeleteSong()
+      })
     }
     
   }

@@ -133,6 +133,7 @@
         }
         window.eventHub.emit('delete', JSON.parse(JSON.stringify(data)))
       })
+      
     },
     bindEventHub() {
       window.eventHub.on('upload', (data) => {

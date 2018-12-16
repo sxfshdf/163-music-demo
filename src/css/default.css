@@ -15,6 +15,7 @@ body{
 }
 button{
   outline: none;
+  cursor: pointer;
 }
 input,textarea{
   font: inherit;
@@ -125,7 +126,8 @@ main header p{
   font-weight: bold;
   color: #e54352;
 }
-main header button.createList{
+main header button.createList,
+main header button.addSongs{
   display: none;
   position: fixed;
   right: 40px;
@@ -158,6 +160,7 @@ main table{
   /* box-shadow: 0 0 4px rgba(0,0,0,0.2); */
   table-layout:fixed;
   /* white-space: nowrap; */
+  margin-bottom: 40px;
   
 }
 table tbody tr:hover{
@@ -196,6 +199,12 @@ table td{
   font-size: 12px;
   padding: 0 0 0 24px;
 }
+table td.listName{
+  cursor: pointer;
+}
+table td.listName:hover{
+  color: #e54352;
+}
 table .far{
   font-size: 12px;
   color: #999;
@@ -206,6 +215,7 @@ table .far{
   background: #eee;
   text-align: center;
   line-height: 28px;
+  cursor: pointer;
 }
 table .far:hover{
   background: linear-gradient(to bottom, #ff4760 0%,#e54352 100%);
@@ -275,6 +285,7 @@ main button.cancel{
   margin-left: 20px;
 }
 main button.save:hover,
+main button.addSongs:hover,
 main button.delete:hover,
 main button.createList:hover{
   background: #dd3d4c;
@@ -317,7 +328,7 @@ main .delete-content .strong{
   height: 100%;
   width: 100%;
   background: rgba(255,255,255,0.6);
-  z-index: 1;
+  z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -356,14 +367,14 @@ main .home .homeListHeadWrapper i{
 }
 main .home .list{
   overflow: hidden;
-  position: relative;
-  height: 272px;
+  /* position: relative; */
+  /* height: 272px; */
 }
 main .home .list ul{
   margin-top: 20px;
   display: flex;
-  position: absolute;
-  left: 0;
+  /* position: absolute; */
+  /* left: 0; */
   /* justify-content: space-between; */
 }
 main .home .list ul>li{
@@ -497,4 +508,121 @@ main .allSongList table th.cover{
 }
 main .allSongList table th.listName{
   width: 22%;
+}
+
+main .listDetail{
+  display: none;
+}
+main .listDetail .wrapper{
+  margin-top: 96px;
+}
+main .listDetail .listHead{
+  padding: 0 28px;
+  display: flex;
+  align-items: flex-end;
+}
+main .listDetail .listInfo{
+  margin-left: 24px;
+}
+main .listDetail .listInfo .listName{
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+}main .listDetail .listInfo .listCreator{
+  font-size: 12px;
+  color: #999;
+  margin-top: 6px;
+}
+main .listDetail .listHead img{
+  height: 160px;
+  width: 160px;
+  border-radius: 4px;
+}
+main .listDetail .allSongs{
+  padding: 0 28px;
+  margin-top: 32px;
+}
+main .listDetail h4.songsTitle{
+  color: #e54352;
+}
+main .listDetail  .tableContainer{
+  margin-top: 4px;
+  display: block;
+}
+main .listDetail table{
+  width: 760px;
+}
+main .listDetail table th.name{
+  width: 220px;
+}
+main .listDetail table th.singer{
+  width: 140px;
+}
+main .listDetail table th.createTime,
+main .listDetail table th.updateTime{
+  width: 200px;
+}
+main .listDetail table th{
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  padding: 0 0 0 12px;
+  /* color: #666; */
+  color: #a5a9b3;
+  font-size: 12px;
+  background: #fefefe;
+  font-weight: normal;
+  height: 40px;
+}
+main .listDetail table tr{
+  height: 48px;
+  border-bottom: none;
+}
+main .listDetail table td{
+  color: #333;
+  word-break: break-all;
+  font-size: 13px;
+  padding: 0 0 0 12px;
+}
+main .listDetail table tr th{
+  height: 40px;
+  /* border-bottom: 1px solid #e6e9f0; */
+}
+
+main .addSong{
+  display: none;
+}
+main .addSong .selectorWrapper{
+  width: 500px;
+  margin: auto;
+  margin-top: 120px;
+}
+main .addSong .selectorWrapper > p{
+  font-weight: bold;
+  color: #333;
+}
+main .addSong .selectors{
+  height: 300px;
+  height: 300px;
+  border: 1px solid #ddd;
+  overflow: auto;
+  margin-top: 10px;
+  padding: 0 10px;
+}
+main .addSong .selectors > div{
+  margin: 8px 0;
+}
+main .addSong form.actions{
+  margin-top: 20px;
+}
+input[type="checkbox"]{
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-bottom: 1px;
+}
+input[type="checkbox"] + label {
+  cursor: pointer;
+  color: #999;
+}
+input[type="checkbox"]:checked + label {
+  color: #333;
 }

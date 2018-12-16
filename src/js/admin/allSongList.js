@@ -71,7 +71,6 @@
       let query = new AV.Query('Playlist')
       query.descending('updatedAt')
       // query.ascending('createdAt')
-      
       return query.find().then((playlist) => {
         this.data.playlists = playlist.map((list) => {
           let playlists = { id: list.id, ...list.attributes }
@@ -146,8 +145,17 @@
         }
         window.eventHub.emit('deleteList', JSON.parse(JSON.stringify(data)))
       })
-      $(this.view.el).on('click','tbody>tr',()=>{
-        console.log('cccccc')
+      $(this.view.el).on('click','td.listName',(e)=>{
+        let $e = $(e.currentTarget)
+        let listId = $e.parent().attr('data-listid')
+        let {playlists} = this.model.data
+        let playlist
+        for(let i=0; i<playlists.length; i++){
+          if(playlists[i].id === listId){
+            playlist = playlists[i]
+          }
+        }
+        window.eventHub.emit('toListDetail',playlist)
       })
     },
     bindEventHub(){
@@ -197,6 +205,12 @@
             window.eventHub.emit('listDeleteDone',JSON.parse(JSON.stringify(this.model.data)))
           })
         })
+      })
+      window.eventHub.on('upload',()=>{
+        this.view.hide()
+      })
+      window.eventHub.on('toListDetail',()=>{
+        this.view.hide()
       })
     }
     

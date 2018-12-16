@@ -5,6 +5,7 @@
     <div class="headerWrapper">
      <p>主页</p>
      <button class="createList">创建歌单</d>
+     <button class="addSongs">添加歌曲</d>
      </div>
     `,
     render(data) {
@@ -39,10 +40,22 @@
     deletePlaylist(){
       $(this.el).find('p').text('删除歌单')
       $(this.el).find('.createList').css('display','none')
+    },
+    listDetail(){
+      $(this.el).find('p').text('歌单详情')
+      $(this.el).find('.createList').css('display','none')
+      $(this.el).find('.addSongs').css('display','block')
+    },
+    addSongs(){
+      $(this.el).find('p').text('添加歌曲')
+      $(this.el).find('.createList').css('display','none')
+      $(this.el).find('.addSongs').css('display','none')
     }
   }
 
-  let model = {}
+  let model = {
+    data:{}
+  }
 
   let controller = {
     init(view, model) {
@@ -55,6 +68,10 @@
     bindEvents(){
       $(this.view.el).on('click','.createList',(e)=>{
         window.eventHub.emit('createList')
+      })
+      $(this.view.el).on('click','.addSongs',(e)=>{
+        console.log(this.model.data)
+        window.eventHub.emit('addSongs',this.model.data)
       })
     },
     bindEventHub() {
@@ -93,11 +110,12 @@
         if(tabName === 'home'){
           this.view.homePage()
           $(this.view.el).find('.createList').css('display','none')
+          $(this.view.el).find('.addSongs').css('display','none')
           
         }else if(tabName === 'songList'){
           this.view.SongList()
           $(this.view.el).find('.createList').css('display','none')
-          
+          $(this.view.el).find('.addSongs').css('display','none')
         }else if(tabName === 'song'){
           this.view.allSongList()
           $(this.view.el).siblings().css('display','none').siblings('header').css('display','block')
@@ -127,6 +145,22 @@
       })
       window.eventHub.on('listDeleteYes',()=>{
         this.view.allSongList()
+      })
+      window.eventHub.on('toListDetail',(playlist)=>{
+        this.model.data.playlist = playlist
+        this.view.listDetail()
+      })
+      window.eventHub.on('addSongs',()=>{
+        this.view.addSongs()
+      })
+      window.eventHub.on('addSongDone',()=>{
+        this.view.listDetail()
+      })
+      window.eventHub.on('addSongCancel',()=>{
+        this.view.listDetail()
+      })
+      window.eventHub.on('homeToDetail',()=>{
+        this.view.listDetail()
       })
     }
   }

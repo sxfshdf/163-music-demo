@@ -27,6 +27,17 @@
     },
     navChange(e){
       $(e).addClass('active').siblings('.active').removeClass('active')
+    },
+    deActive(){
+      $(this.el).find('li').removeClass('active')
+    },
+    activeSonglist(){
+      $(this.el).find('li').eq(1).addClass('active')
+      .siblings('.active').removeClass('active')
+    },
+    activeSong(){
+      $(this.el).find('li').eq(2).addClass('active')
+      .siblings('.active').removeClass('active')
     }
   }
 
@@ -39,6 +50,7 @@
       this.view.render()
       this.initQiniu()
       this.bindEvents()
+      this.bindEventHub()
     },
     bindEvents(){
       $(this.view.el).on('click','li',(e)=>{
@@ -49,6 +61,72 @@
         let tabName = className.split(' ')[0]
         window.eventHub.emit('selectTab',tabName)
       })
+    },
+    bindEventHub(){
+      // window.eventHub.on('upload',()=>{
+      //   this.view.deActive()
+      // })
+      window.eventHub.on('addSong',()=>{
+        this.view.deActive()
+      })
+      window.eventHub.on('edit',()=>{
+        this.view.deActive()
+      })
+      window.eventHub.on('delete',()=>{
+        this.view.deActive()
+      })
+      window.eventHub.on('toListDetail',()=>{
+        this.view.deActive()
+      })
+      window.eventHub.on('createList',()=>{
+        this.view.deActive()
+      })
+      window.eventHub.on('editList',()=>{
+        this.view.deActive()
+      })
+      window.eventHub.on('deleteList',()=>{
+        this.view.deActive()
+      })
+      window.eventHub.on('toListDetail',()=>{
+        this.view.deActive()
+      })
+      window.eventHub.on('homeToDetail',()=>{
+        this.view.deActive()
+      })
+      window.eventHub.on('deleteCancel',()=>{
+        this.view.activeSonglist()
+      })
+      window.eventHub.on('deleteSong',()=>{
+        this.view.activeSonglist()
+      })
+      window.eventHub.on('cancel',()=>{
+        this.view.activeSonglist()
+      })
+      window.eventHub.on('update',()=>{
+        this.view.activeSonglist()
+      })
+      window.eventHub.on('createListCancel',()=>{
+        this.view.activeSong()
+      })
+      window.eventHub.on('updatePlaylist',()=>{
+        this.view.activeSong()
+      })
+      window.eventHub.on('listDeleteYes',()=>{
+        this.view.activeSong()
+      })
+      window.eventHub.on('listDeleteCancel',()=>{
+        this.view.activeSong()
+      })
+      window.eventHub.on('listDeleteCancel',()=>{
+        this.view.activeSong()
+      })
+      window.eventHub.on('updatePlaylist',()=>{
+        this.view.activeSong()
+      })
+      window.eventHub.on('createPlaylist',()=>{
+        this.view.activeSong()
+      })
+
     },
     initQiniu() {
       var uploader = Qiniu.uploader({
