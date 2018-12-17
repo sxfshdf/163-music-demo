@@ -12,21 +12,35 @@
     render(data){
       this.$el.html(this.template)
       let {songs} = data
-      songs.map((song)=>{
-        let $li = $(`<li class="song">
-        <a href="./song.html?id=${song.id}">
-          <div class="songInfo">
-            <p class="songName">${song.name}</p>
-            <p class="singer">${song.singer}</p>
-          </div>
-          <div class="playIcon">
-            <i class="fas fa-play play"></i>
-          </div>
-        </a>
-        </li>`)
-        
-        this.$el.find('ul.songList').append($li)
-      })
+      if(songs.length !== 0){
+        console.log(songs)
+        songs.map((song)=>{
+          let $li = $(`<li class="song">
+          <a href="./song.html?id=${song.id}">
+            <div class="songInfo">
+              <p class="songName">${song.name}</p>
+              <p class="singer">${song.singer}</p>
+            </div>
+            <div class="playIcon">
+              <i class="fas fa-play play"></i>
+            </div>
+          </a>
+          </li>`)
+          
+          this.$el.find('ul.songList').append($li)
+        })
+      }else{
+        let $div = $(`
+        <div class="error">
+        <img class="notFind" src="./img/404-02.png" alt="">
+        <div class="wrongInfo">
+        <p>抱歉，没有找到相关歌曲</p>
+        <p>请换个关键词试试</p>
+        </div>
+        `)
+        this.$el.append($div)
+      }
+      
     },
     hide(){
       this.$el.removeClass('active')

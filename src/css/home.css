@@ -379,6 +379,7 @@ main .song i{
 }
 .page-search .searchResult{
   display: none;
+  /* position: relative; */
 }
 .page-search .searchResult.active{
   display: block;
@@ -388,8 +389,26 @@ main .song i{
   padding-left: 16px;
   color: #999;
   padding-bottom: 20px;
+  position: relative;
 }
-
+.page-search .error{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 40px;
+}
+.page-search .notFind {
+  width: 220px;
+  opacity: 0.8;
+}
+.page-search .wrongInfo{
+  width: 220px;
+  text-align: center;
+  color: #bbb;
+  margin-top: 16px;
+}
 /* footer */
 
 footer{

@@ -3,7 +3,7 @@
     el: '.addSong',
     template: `
     <div class="selectorWrapper">
-      <p>选择要添加的歌曲</p>
+      <p>选择要给歌单添加的歌曲</p>
       <div class="selectors">
       <div>
         <input data-songId="11111" type="checkbox" id="天后" name="song" value="天后" checked>
@@ -22,6 +22,8 @@
     </div>
     `,
     render(data){
+      // let html = this.template
+      // html = html.replace('{{name}}',data.playlist.name)
       $(this.el).html(this.template)
       let { songs } = data
       let doms = songs.map((song)=>{
@@ -103,6 +105,8 @@
       this.view = view
       this.model = model
       this.model.find().then(()=>{
+        console.log('--------')
+        console.log(this.model.data)
         this.view.render(this.model.data)
       })
       this.bindEvents()
