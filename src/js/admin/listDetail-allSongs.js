@@ -48,7 +48,7 @@
       songs: []
     },
     find(playlist) {
-      var playlist = AV.Object.createWithoutData('Playlist', playlist.id);
+      var playlist = AV.Object.createWithoutData('Playlist', playlist.id)
       // 构建 StudentCourseMap 的查询
       var query = new AV.Query('PlaylistMap');
       // 查询所有选择了线性代数的学生

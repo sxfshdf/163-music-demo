@@ -36,12 +36,19 @@
     data: {
       songs: []
     },
-    find() {
-      let query = new AV.Query('Song')
-      query.descending('updatedAt')
-      return query.find().then((songs) => {
+    find(data) {
+      let playlist = AV.Object.createWithoutData('Playlist', data.id)
+      let query = new AV.Query('PlaylistMap')
+      query.equalTo('playlist', playlist)
+      query.include('song')
+      query.descending('createdAt')
+      return query.find().then((playlistMap) => {
+        let songs = playlistMap.map((xxx) => {
+          return xxx.get('song')
+        })
         this.data.songs = songs.map((song) => {
-          return Object.assign({ id: song.id}, song.attributes)
+          let songs = { id: song.id, ...song.attributes }
+          return songs
         })
         return songs
       })
@@ -52,9 +59,25 @@
     init(view,model){
       this.model = model
       this.view = view
-      this.model.find().then(()=>{
+      this.getListId()
+      this.model.find(this.model.data).then(()=>{
         this.view.render(this.model.data)
       })
+    },
+    getListId(){
+      let search = window.location.search
+      if(search.indexOf('?')==0){
+        search = search.substring(1)
+      }
+      let array = search.split('&').filter((v => v))
+      let id 
+      for(let i=0; i<array.length; i++){
+        let hash = array[i].split('=')
+        if(hash[0] === 'id'){
+          id = hash[1]
+        }
+      }
+      this.model.data.id = id
     }
   }
 

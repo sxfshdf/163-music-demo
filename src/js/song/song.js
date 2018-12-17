@@ -121,7 +121,7 @@
     },
     getSongId() {
       let search = window.location.search
-      if ('?'.indexOf(search) === -1) {
+      if (search.indexOf('?') === 0) {
         search = search.substring(1)
       }
       let search1 = search.split('&').filter((v => v))
