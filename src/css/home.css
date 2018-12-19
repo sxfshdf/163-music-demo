@@ -400,8 +400,9 @@ main .song i{
   margin-top: 40px;
 }
 .page-search .notFind {
-  width: 220px;
+  width: 200px;
   opacity: 0.8;
+  margin-left: 8px;
 }
 .page-search .wrongInfo{
   width: 220px;
@@ -423,6 +424,18 @@ footer{
   padding-bottom: 4px;
 }
 
+.page-search .songLoadingWrapper{
+  padding-top: 180px;
+  text-align: center;
+  display: none;
+}
+.page-search .songLoadingWrapper.active{
+  display: block;
+}
+.page-search .songLoading{
+  width: 40px;
+  height: 40px;
+}
 
 
 

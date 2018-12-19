@@ -8,12 +8,13 @@
       <p class="result">匹配结果:</p>
       <ul class="songList">
       </ul>
+      
     `,
     render(data){
       this.$el.html(this.template)
       let {songs} = data
       if(songs.length !== 0){
-        console.log(songs)
+        // console.log(songs)
         songs.map((song)=>{
           let $li = $(`<li class="song">
           <a href="./song.html?id=${song.id}">
@@ -26,8 +27,8 @@
             </div>
           </a>
           </li>`)
-          
           this.$el.find('ul.songList').append($li)
+          window.eventHub.emit('songLoaded')
         })
       }else{
         let $div = $(`
@@ -39,6 +40,7 @@
         </div>
         `)
         this.$el.append($div)
+        window.eventHub.emit('songLoaded')
       }
       
     },
@@ -55,6 +57,7 @@
       songs:[]
     },
     search(data){
+      window.eventHub.emit('songOnLoad')
       let query = new AV.Query('Song')
       // let {searchFilter} = data
       query.contains('name', data)
@@ -62,6 +65,7 @@
         this.data.songs = songs.map((song) => {
         return Object.assign({ id: song.id} ,song.attributes) 
         })
+        
         return songs
       })
     }
@@ -72,7 +76,7 @@
       this.view = view
       this.view.init()
       this.model = model
-      this.view.render(this.model.data)
+      // this.view.render(this.model.data)
       this.bindEvents()
       this.bindEventHub()
     },
@@ -95,6 +99,7 @@
         // console.log(valueFilter)
         this.model.search(value).then(()=>{
           this.view.render(this.model.data)
+          
         })
       })
       window.eventHub.on('resetSearch',()=>{
@@ -108,6 +113,13 @@
         this.model.search(value).then(()=>{
           this.view.render(this.model.data)
         })
+      })
+      window.eventHub.on('songOnLoad',()=>{
+        this.view.hide()
+      })
+      window.eventHub.on('songLoaded',()=>{
+        this.view.show()
+
       })
     }
   }
